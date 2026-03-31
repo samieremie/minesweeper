@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Grid styles */
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  margin: 0;
+  overflow: hidden; /* Prevents accidental scrollbars */
+  background-color: #88c6f8;
+}
+
+.grid-wrapper {
+  display: inline-block;
+  border: 5px solid #4a752c;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Game Over screen styles */
+.game-over-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensures it stays on top of cells */
+  border-radius: 4px;
+}
+
+.message-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.3s ease-out;
+}
+
+.message-card h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+button.play-again {
+  background-color: #4caf50; /* A nice "Go" green */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 4px 0 #388e3c; /* 3D effect bottom border */
+  margin-top: 10px;
+}
+
+button.play-again:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #388e3c;
+}
+
+button.play-again:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #388e3c;
+}
+
+.message-card p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header styles */
+.header {
+  background-color: #4a752c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#difficulty-dropdown {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.flags-remaining,
+.timer {
+  display: flex;
+  align-items: center; /* Vertically centers the icon with the text */
+  gap: 8px; /* Replaces the 'margin-right' you had in the pseudo-element */
+  font-variant-numeric: tabular-nums; /* Keeps numbers from jumping around as they change */
+}
+
+.flags-remaining span,
+.timer span {
+  color: white;
+  font-family: "Roboto", sans-serif; /* Google's standard font */
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header-icon {
+  width: 30px;
+  height: 30px;
+  /* Optional: if the clock icon looks too white, you can dim it slightly */
+  opacity: 0.9;
+  object-fit: contain;
+}
+
+/* Grid styles */
+.grid {
+  background-color: #4a752c;
+  width: 500px;
+  max-width: 90vw;
+  display: grid;
+  overflow: hidden;
+}
+
+.row {
+  display: flex; /* Aligns cells horizontally */
+}
+
+.cell {
+  container-type: size;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: 1.25rem;
+  transition: filter 0.1s;
+}
+
+/* The Checkered Pattern */
+.light-green {
+  background-color: #aad751;
+}
+
+.dark-green {
+  background-color: #a2d149;
+}
+
+.light-tan {
+  background-color: #e5c29f; /* Lighter earth */
+}
+
+.dark-tan {
+  background-color: #d7b899; /* Darker earth */
+}
+
+.cell[data-bombsnear="1"] {
+  color: #1976d2;
+}
+
+.cell[data-bombsnear="2"] {
+  color: #388e3c;
+}
+
+.cell[data-bombsnear="3"] {
+  color: #d32f2f;
+}
+
+.cell[data-bombsnear="4"] {
+  color: #7b1fa2;
+}
+
+/* Hover effect like the original game */
+.cell:hover {
+  filter: brightness(1.1);
+}
+
+.cell-flag-icon {
+  width: 50%;
+  height: 50%;
+
+  /* Essential: keeps the flag's shape correct */
+  object-fit: contain;
+
+  /* Optional: smoothing for scaled images */
+  image-rendering: auto;
+}
+
+.flagged {
+  font-size: 20px;
+}
+
+@keyframes bomb-pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Adjust your JSX to wrap the bomb in a span with this class */
+.bomb-icon {
+  display: inline-flex; /* Centers the emoji better than inline-block */
+  align-items: center;
+  justify-content: center;
+
+  font-size: 65cqw;
+  animation: bomb-pop 0.3s ease-out forwards;
+}
